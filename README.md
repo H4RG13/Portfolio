@@ -1,4 +1,4 @@
-# Eliza's Portfolio Website
+# Harvie's Portfolio Website
 
 A modern, responsive personal portfolio website showcasing skills, projects, and professional information as an aspiring Software Developer.
 
