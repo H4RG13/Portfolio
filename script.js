@@ -1,3 +1,100 @@
+// Image Lightbox/Zoom Functionality
+const imageModal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const modalClose = document.querySelector('.modal-close');
+const projectPhotos = document.querySelectorAll('.project-photo');
+
+// Open modal when project image is clicked
+projectPhotos.forEach(photo => {
+    photo.addEventListener('click', function() {
+        imageModal.classList.add('show');
+        modalImage.src = this.src;
+        modalImage.alt = this.alt;
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+// Close modal when close button is clicked
+modalClose.addEventListener('click', function() {
+    imageModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+});
+
+// Close modal when clicking outside the image
+imageModal.addEventListener('click', function(e) {
+    if (e.target === imageModal) {
+        imageModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && imageModal.classList.contains('show')) {
+        imageModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Contact Form Submission Handler
+const contactForm = document.querySelector('.contact-form');
+const successModal = document.getElementById('successModal');
+const successModalBtn = document.getElementById('successModalBtn');
+
+contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(this);
+    
+    // Submit to Formspree
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Show success modal
+            successModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            // Reset form
+            contactForm.reset();
+        } else {
+            alert('There was an error sending your message. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error sending your message. Please try again.');
+    });
+});
+
+// Close success modal
+successModalBtn.addEventListener('click', function() {
+    successModal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+});
+
+// Close success modal when clicking outside
+successModal.addEventListener('click', function(e) {
+    if (e.target === successModal) {
+        successModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Close success modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && successModal.classList.contains('show')) {
+        successModal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -94,34 +191,6 @@ document.querySelectorAll('.skill-tag, .project-card, .stat').forEach(el => {
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
-
-// Contact Form Handler
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const name = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const message = this.querySelector('textarea').value;
-        
-        // Simple validation
-        if (name && email && message) {
-            // Create mailto link (in a real application, you'd send this to a backend)
-            const mailtoLink = `mailto:eliza@example.com?subject=Portfolio Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0D%0A%0D%0AFrom: ${encodeURIComponent(email)}`;
-            window.location.href = mailtoLink;
-            
-            // Clear form
-            this.reset();
-            
-            // Show confirmation (optional)
-            alert('Thank you for your message! I\'ll get back to you soon.');
-        } else {
-            alert('Please fill in all fields.');
-        }
-    });
-}
 
 // Active Navigation Link Highlighting
 window.addEventListener('scroll', () => {

@@ -64,6 +64,27 @@ body {
     background-clip: text;
     text-decoration: none;
     letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border: 2px solid var(--accent-color);
+    transition: var(--transition);
+}
+
+.nav-logo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(77, 184, 255, 0.5);
+}
+
+.logo-image {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .nav-menu {
@@ -437,6 +458,181 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.project-image:hover .project-photo {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* Image Lightbox Modal */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.image-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalImage {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 2001;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95%;
+    }
+
+    #modalImage {
+        max-height: 80vh;
+    }
+
+    .modal-close {
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
+    }
+}
+
+/* Success Modal */
+.success-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s ease;
+}
+
+.success-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-modal-content {
+    background: linear-gradient(135deg, var(--light-bg) 0%, var(--dark-bg) 100%);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    max-width: 400px;
+    animation: slideUp 0.4s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.success-icon {
+    font-size: 3rem;
+    color: #4caf50;
+    margin-bottom: 1rem;
+    animation: scaleIn 0.5s ease;
+}
+
+.success-modal-content h2 {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.success-modal-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+#successModalBtn {
+    min-width: 150px;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .success-modal-content {
+        max-width: 90%;
+        padding: 2rem 1.5rem;
+    }
+
+    .success-icon {
+        font-size: 2.5rem;
+    }
+
+    .success-modal-content h2 {
+        font-size: 1.5rem;
+    }
 }
 
 .project-content {
@@ -730,7 +926,14 @@ body {
     }
 
     .nav-logo {
-        font-size: 1.5rem;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+    }
+
+    .logo-image {
+        width: 30px;
+        height: 30px;
     }
 
     .projects-tabs {
